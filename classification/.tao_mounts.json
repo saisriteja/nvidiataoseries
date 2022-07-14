@@ -1,0 +1,28 @@
+{
+    "Mounts": [
+        {
+            "source": "/home",
+            "destination": "/workspace"
+        },
+        {
+            "source": "/home",
+            "destination": "/home"
+        }
+    ],
+    "Envs": [
+        {
+            "variable": "CUDA_DEVICE_ORDER",
+            "value": "PCI_BUS_ID"
+        }
+    ],
+    "DockerOptions": {
+        "shm_size": "16G",
+        "ulimits": {
+            "memlock": -1,
+            "stack": 67108864
+        },
+        "ports": {
+            "8001": 8001
+        }
+    }
+}
