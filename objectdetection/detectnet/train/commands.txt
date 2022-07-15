@@ -1,2 +1,4 @@
 tao detectnet_v2 dataset_convert -d /home/saiteja/DetectTech/scripts/configs/train.cfg -o train.tfrecord
 
+
+
