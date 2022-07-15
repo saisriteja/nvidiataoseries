@@ -219,13 +219,6 @@ def main(args):
         sys.stderr.write(" Unable to make sgie1 \n")
 
 
-    sgie2 = Gst.ElementFactory.make("nvinfer", "secondary2-nvinference-engine")
-    if not sgie2:
-        sys.stderr.write(" Unable to make sgie2 \n")
-
-    sgie3 = Gst.ElementFactory.make("nvinfer", "secondary3-nvinference-engine")
-    if not sgie3:
-        sys.stderr.write(" Unable to make sgie3 \n")
 
     nvvidconv = Gst.ElementFactory.make("nvvideoconvert", "convertor")
     if not nvvidconv:
@@ -256,8 +249,7 @@ def main(args):
     #Set properties of pgie and sgie
     pgie.set_property('config-file-path', "dstest2_pgie_config.txt")
     sgie1.set_property('config-file-path', "dstest2_sgie1_config.txt")
-    sgie2.set_property('config-file-path', "dstest2_sgie2_config.txt")
-    sgie3.set_property('config-file-path', "dstest2_sgie3_config.txt")
+
 
     #Set properties of tracker
     config = configparser.ConfigParser()
@@ -295,8 +287,6 @@ def main(args):
     pipeline.add(pgie)
     pipeline.add(tracker)
     pipeline.add(sgie1)
-    pipeline.add(sgie2)
-    pipeline.add(sgie3)
     pipeline.add(nvvidconv)
     pipeline.add(nvosd)
     pipeline.add(sink)
@@ -320,9 +310,7 @@ def main(args):
     streammux.link(pgie)
     pgie.link(tracker)
     tracker.link(sgie1)
-    sgie1.link(sgie2)
-    sgie2.link(sgie3)
-    sgie3.link(nvvidconv)
+    sgie1.link(nvvidconv)
     nvvidconv.link(nvosd)
     if is_aarch64():
         nvosd.link(transform)
